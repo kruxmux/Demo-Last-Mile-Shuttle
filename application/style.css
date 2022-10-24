@@ -1,0 +1,205 @@
+/* Hej och välkommen */
+
+/* ----- Wrapper för allt ----- */
+body {
+  background-color: #fffdf9;
+  margin: 0;
+  padding: 0;
+}
+
+.container-fluid {
+  padding-right:0;
+  padding-left:0;
+  margin-right:auto;
+  margin-left:auto;
+}
+
+/* ----- Header / navigation -----*/
+header {
+  height: 4.2em;
+  background-color: #fffdf9;
+}
+
+#nav {
+  font-family: 'Lato', sans-serif;
+  font-weight: 900;
+  float:left;
+  letter-spacing: -0.01em;
+  padding-top: 8px;
+  left: 2.5%;
+  font-size: 34px;
+  text-align: left;
+  text-transform: uppercase;
+  opacity: 0.9;
+}
+
+#navbutton {
+  right: 2.5%;
+  padding-top: 7px;
+  font-family: 'Lato', sans-serif;
+}
+
+#knappe {
+   padding-top: 2px;
+   text-align: center;
+}
+
+
+/* ----- Kartan ----- */
+#wrappermap {
+  position: relative;
+  z-index: 0;
+}
+
+#mapid {
+  height: 540px;
+  width: 100%;
+  z-index: 0;
+}
+
+#overmap {
+  left: 4%;
+  width: 340px;
+  position: absolute;
+  background-color:#fffdf9;;
+  height:39%;
+  z-index: 99;
+  text-align: center;
+  top: 58%;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  box-shadow: 0px 15px 8px -8px;
+  border-radius: 5px;
+}
+
+#undermap {
+  height:200px;
+  background-color:#fffdf9;;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  text-align: center;
+}
+
+/* ----- Inuti overlay -----*/
+
+/* Ruta med text */
+#bokat {
+  font-family: 'Lato', sans-serif;
+  font-size: 1.5em;
+  text-align: center;
+  margin: 0 auto;
+  height:25%;
+  font-weight: 700;
+}
+
+#mobBokat {
+  font-family: 'Lato', sans-serif;
+  font-size: 1.5em;
+  text-align: center;
+  margin: 0 auto;
+  height:20%;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+#radioknappar {
+  height: 25%;
+  align-content: center;
+}
+
+#mobradioknappar {
+  height: 25%;
+  align-content: center;
+  margin-bottom: 15px;
+}
+
+/* Container för skrivfält */
+#formContainer {
+  height: 25%;
+  margin: auto;
+  align-content: center;
+  text-align: center;
+}
+
+#mobformContainer {
+  height: 25%;
+  align-content: center;
+  text-align: center;
+}
+
+/* Skrivfält from/to */
+#fr {
+  display: block;
+  background-color: white;
+  opacity: 100%;
+  align-content: center;
+}
+
+#to {
+  display: block;
+  margin: 0 auto;
+  height:30px;
+  background-color: white;
+  align-content: center;
+  margin-bottom: 10px;
+}
+
+#mobFr {
+  display: block;
+  background-color: white;
+  opacity: 100%;
+  align-content: center;
+}
+
+#mobTo {
+  display: block;
+  margin: 0 auto;
+  height:30px;
+  background-color: white;
+  align-content: center;
+  margin-bottom: 20px;
+}
+
+/* Container för knappar */
+#buttonContainer {
+  height: 25%;
+  align-content: center;
+  padding-top: 10px;
+}
+
+#mobbuttonContainer {
+  height: 25%;
+  align-content: center;
+  padding-top: 10px;
+}
+
+/* Knappar */
+#buttonContainer button {
+  align-content: center;
+  outline: none;
+}
+
+#mobbuttonContainer button {
+  align-content: center;
+  outline: none;
+}
+
+.overknapp {
+  font-family: 'Lato', sans-serif;
+}
+
+
+/* ----- Övrigt -----*/
+
+/* Centrera bootstrap-element*/
+.col-centered{
+  float: none;
+  margin: 0 auto;
+}
+
+
+.ui-autocomplete {
+  height: 200px;
+  width: 200px;
+  overflow-y: scroll;
+  overflow-x: hidden;}

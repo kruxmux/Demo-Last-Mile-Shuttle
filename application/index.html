@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- JQuery -->
+<link rel='stylesheet' href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/base/minified/jquery-ui.min.css'/>
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Caveat&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/css/bootstrap.min.css" integrity="sha384-SI27wrMjH3ZZ89r4o+fGIJtnzkAnFs3E4qz9DIYioCQ5l9Rd/7UAa8DHcaL8jkWt" crossorigin="anonymous">
+  <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+  <!-- Style CSS -->
+  <link rel="stylesheet" href="style.css" media="screen">
+  <!-- Geosearch -->
+  <link  href="https://unpkg.com/leaflet-geosearch@latest/assets/css/leaflet.css" rel="stylesheet" />
+  <!--Leaflet-->
+  <link rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+  integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+  crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+  integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+  crossorigin=""></script>
+  <script src="leaflet.motion/dist/leaflet.motion.min.js"></script>
+  <script src="polyline/polyline.js"></script>
+  <title>On Demand</title>
+</head>
+<body>
+  <!-- Container för hela sidan -->
+  <div class="container-fluid">
+
+    <!-- Header/nav-bar -->
+    <header class="row">
+      <div class="col-sm-4 col-4" id="nav"><p>odyss</p></div>
+      <div class="col-sm-4 col-4"></div>
+      <div class="col-sm-4 col-4" id="navbutton">
+        <div class ="row float-right">
+          <div class="col-sm-12 col-12" id="navbutton">
+            <style>
+              .toggle.android {}
+              .toggle.android .toggle-handle { background-color: #FA8334; color: white;}
+            </style>
+            <input id="knappe" type="checkbox" data-style="android" checked data-toggle="toggle" data-onstyle="dark" onchange="changeView()"
+              data-offstyle="dark" data-on="User" data-off="Admin">
+          </div>
+      </div>
+    </div>
+    </header>
+
+    <!-- Container för kartan-->
+    <div class="row" id="wrappermap">
+
+      <!-- Själva kartan -->
+      <div id="mapid"></div>
+
+      <!-- ----- PC/LAPTOP ----- -->
+      <!-- Overlay-ruta -->
+      <div class="col-sm-6 d-none d-md-block" id="overmap">
+
+        <!-- Text i rutan -->
+        <div class ="row">
+          <div class="col-sm-12" id="bokat">Boka din skyttel</div>
+        </div>
+
+        <!-- Checkboxes -->
+        <div class="row" id="radioknappar">
+          <div class="col-sm-2"></div>
+          <div class="form-check col-sm-4">
+            <input type="radio" class="form-check-input" name="way" onchange="setTrue()">
+            <label class="form-check-label" for="materialUnchecked">Hemresa</label>
+          </div>
+          <div class="form-check col-sm-4">
+            <input type="radio" class="form-check-input" name="way" onchange="setFalse()">
+            <label class="form-check-label" for="materialUnchecked">Utresa</label>
+          </div>
+        </div>
+
+        <!-- Skrivfält -->
+
+        <div class ="row" id="formContainer">
+          <form id="fr" class="col-sm-12">
+            <input class="col-sm-12" type="text" name="from" placeholder="Från: Skriv in/Klicka på kartan"<br>
+          </form>
+          <!--form id="to" class="col-sm-12">
+            <input class="col-sm-12" type="text" name="to" placeholder="Till: Skriv in/Klicka på kartan"><br>
+          </form-->
+        </div>
+
+        <!-- Knappar -->
+        <div class="row col-centered align-baseline">
+          <div class="col-sm-12" id="buttonContainer">
+            <button type="button" class="btn btn-dark col-sm-12 overknapp" onclick="search()">Boka</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ----- TABLET/MOBILE ----- -->
+  <!-- Ruta under karta -->
+  <div class="row d-md-none">
+    <div class="col-sm-12" id="undermap">
+
+      <!-- Text i ruta-->
+      <div class ="row">
+        <div class="col-sm-12 col-12" id="mobBokat">Boka din skyttel!</div>
+      </div>
+        <!-- Checkboxes -->
+        <div class="row" id="mobradioknappar">
+          <div class="col-sm-3 col-2"></div>
+          <div class="form-check col-sm-3 col-4">
+            <input type="radio" class="form-check-input" name="way" onchange="updateStateHem()">
+            <label class="form-check-label" for="materialUnchecked">Hemresa</label>
+          </div>
+          <div class="form-check col-sm-3 col-4">
+            <input type="radio" class="form-check-input" name="way" onchange="updateStateHem()">
+            <label class="form-check-label" for="materialUnchecked">Utresa</label>
+          </div>
+        </div>
+
+        <!-- Skrivfält -->
+        <div class ="row col-centered" id="mobformContainer">
+          <div class="col-sm-2 col-2"></div>
+          <form id="mobFr" class="col-sm-8 col-8 ">
+            <input type="text" class="form-control" name="from" placeholder="Från: Skriv in/Klicka på kartan">
+          </form>
+          <!--form id="mobTo" class="col-sm-12 col-10 col-centered">
+            <input type="text" class="form-control col-sm-12 col-12" name="to" placeholder="Till: Skriv in/Klicka på kartan">
+          </form-->
+        </div>
+
+      <!-- Knappar -->
+      <div class="row col-centered">
+        <div class="col-sm-12 col-12" id="mobbuttonContainer">
+          <button type="button" class="btn btn-dark col-sm-8 col-8 overknapp" onclick="search()">Boka</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- slut på container för hela sidan -->
+</div>
+
+<!-- (Bootstrap) jQuery first, then Popper.js, then Bootstrap JS  -->
+<script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js'></script>
+<!--<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> -->
+<script src="https://unpkg.com/leaflet-geosearch@latest/dist/bundle.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/js/bootstrap.min.js" integrity="sha384-3qaqj0lc6sV/qpzrc1N5DC6i1VRn/HyX4qdPaiEFbn54VjQBEU341pvjz7Dv3n6P" crossorigin="anonymous"></script>
+
+<script src="shuttle.js"></script>
+<script src="passenger.js"></script>
+<script src="search_form.js"></script>
+<script src="script.js"></script>
+<!-- Uppdate checkbox, test, funkar detta? -->
+<script>
+  function setTrue() {
+    home = true;
+    document.getElementsByName('from')[0].placeholder="Till: Skriv in/klicka på kartan";
+    console.log("Going home");
+  }
+  function setFalse() {
+    home = false;
+    document.getElementsByName('from')[0].placeholder="Från: Skriv in/klicka på kartan";
+    console.log("Going to station");
+  }
+
+</script>
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+</body>
+</html>
